@@ -37,4 +37,4 @@
 
 ## Ilustación de la pantalla del juego
 
-![Ilustación de la pantalla del juego](/imagenes/ilustacionSegundaPantalla.png "Pantalla del juego")
+![Ilustación de la pantalla del juego](/imagenes/imagenesReadme/ilustacionSegundaPantalla.png "Pantalla del juego")
