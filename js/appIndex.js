@@ -19,10 +19,9 @@ boton.addEventListener('click', () => {
     }
 
     const nombreJugadores = [valorInputP1, valorInputP2];
-
     localStorage.setItem("nombreJugadoresJSON", JSON.stringify(nombreJugadores));
 
-    // Ahora debería de redirigirlo al juego en sí. Después obtenés los valores desde el localStorage.
+    window.location.href = "../html/index.html";
 })
 
 function crearMensajeError(mensaje){
