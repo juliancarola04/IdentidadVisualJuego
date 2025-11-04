@@ -21,7 +21,7 @@ boton.addEventListener('click', () => {
     const nombreJugadores = [valorInputP1, valorInputP2];
     localStorage.setItem("nombreJugadoresJSON", JSON.stringify(nombreJugadores));
 
-    window.location.href = "../html/index.html";
+    window.location.href = "../html/pantallaPartida.html";
 })
 
 function crearMensajeError(mensaje){
