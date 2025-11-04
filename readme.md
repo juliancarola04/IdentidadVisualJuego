@@ -6,11 +6,11 @@
 ### Cosas a realizar
 
 <ul>
-    <li>Pantalla 1</li>
-    <li>Pantalla 2</li>
+    <li>Pantalla de selección</li>
+    <li>Pantalla de juego</li>
 </ul>
 
-### Contenido de la pantalla 1
+### Contenido de la pantalla de selección
 
 <ul>
     <li>El usuario ha de poder ingresar su nombre y guardarlo.</li>
@@ -18,7 +18,7 @@
     <li>Se deben de guardar los nombres de los jugadores en un localStorage.</li>
 </ul>
 
-### Contenido de la pantalla 2
+### Contenido de la pantalla de juego
 
 <ul>
     <li>En el centro debe haber un dado de 6 caras. Cuando alguno de los 2 jugadores tire un dado se ha de mostrar la cara que salió debajo del dado (esto es a través de imágenes).</li>
@@ -34,3 +34,7 @@
     <li>Los datos de la partida han de ser guardados en un localStorage por si llegara a haber un problema se pueda volver a donde se estaba.</li>
     <li>Del lado del jugador se han de mostrar los nombres, imágenes del jugador, puntos actuales (cara que sacó en esa ronda, 0 si no tiró aún), puntos totales (suma de las caras a lo largo de las rondas) y rondas ganadas.</li>
 </ul>
+
+## Ilustación de la pantalla del juego
+
+![Ilustación de la pantalla del juego](/imagenes/ilustacionSegundaPantalla.jpg "Pantalla del juego")
