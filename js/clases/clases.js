@@ -50,14 +50,17 @@ export class Jugador {
     }    
 
     // Para ver el tema del random: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-    tirarDado(boton){
+    tirarDado(boton, tablero){
         if (this.tiroJugador === false){
             console.log("El jugador" + this.nombre + " tiró");
             boton.classList.remove("habilitado", "btn-primary");
             boton.classList.add("btn-secondary")
             boton.textContent = "Tiro realizado";
             this.tiroJugador = true;
-            return Math.floor((Math.random() * 6) + 1);
+
+            const resultadoRandom = Math.floor((Math.random() * 6) + 1);
+            tablero.resultadoDado(resultadoRandom);
+            return resultadoRandom;
         }
         return;
     }
@@ -73,5 +76,9 @@ export class Tablero {
         this.jugadorDos = jugadorDos;
         this.rondaActual = rondaActual;
         this.resultadoDado = resultadoDado
+    }
+
+    set resultadoDado(resultadoDado){
+        this.resultadoDado = resultadoDado;
     }
 }

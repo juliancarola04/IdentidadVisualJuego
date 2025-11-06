@@ -52,5 +52,5 @@ document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: 
 const botonJugador1 = document.getElementById('tirarDadoJugador1');
 const botonJugador2 = document.getElementById('tirarDadoJugador2');
 
-botonJugador1.addEventListener('click', () => jugador1.tirarDado(botonJugador1));
-botonJugador2.addEventListener('click', () => jugador2.tirarDado(botonJugador2));
+botonJugador1.addEventListener('click', () => jugador1.tirarDado(botonJugador1, tablero));
+botonJugador2.addEventListener('click', () => jugador2.tirarDado(botonJugador2, tablero));
