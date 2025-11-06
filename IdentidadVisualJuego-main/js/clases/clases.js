@@ -124,6 +124,17 @@ export class Tablero {
         this.jugadorDos.tiroDado = false;
 
         this.guardarEstado();
-    }
+        // Verificar si alguien ganó
+        if (this.jugadorUno.rondasGanadas >= 5 || this.jugadorDos.rondasGanadas >= 5) {
+                return this.obtenerGanador();
+            }
+        }
+        // 🔹 Si no terminó el juego, devolvemos null
+        return null;
 }
+    obtenerGanador() {
+        return (this.jugadorUno.rondasGanadas > this.jugadorDos.rondasGanadas)
+            ? this.jugadorUno
+            : this.jugadorDos;
+    }
 }

@@ -74,6 +74,7 @@ botonJugador2.addEventListener('click', () =>
 
 function cambiarTurno(botonActual, botonSiguiente, jugadorActual, puntajeActual, puntajeTotal, rondasGanadasJugador, rondasGanadasOponente) {
     const resultado = jugadorActual.tirarDado();
+    const ganador = tablero.actualizarRonda();
 
     if (resultado === false) return;
 
@@ -98,6 +99,7 @@ function cambiarTurno(botonActual, botonSiguiente, jugadorActual, puntajeActual,
     // Guardar resultado del dado y estado del tablero
     tablero.resultadoDado = resultado;
     tablero.guardarEstado();
+    
 
 const imagenDado = document.getElementById('imagen-dado');
 const textoDado = document.getElementById('resultado-dado-texto');
@@ -110,6 +112,25 @@ setTimeout(() => {
 }, 500);
 
     tablero.actualizarRonda();
+
+if (ganador) {
+    // Si hay ganador, actualizo el DOM desde acá
+    const mensaje = document.getElementById('mensaje-final');
+    const divResultado = document.getElementById('resultado-final');
+
+    mensaje.textContent = `🏆 ¡${ganador.getNombre} ganó la partida con ${ganador.getPuntajeTotal} puntos!`;
+    divResultado.style.display = "block";
+
+    botonJugador1.disabled = true;
+    botonJugador2.disabled = true;
+    // 🔹 Deshabilitar ambos botones para finalizar el juego
+    botonJugador1.classList.remove("habilitado", "btn-primary");
+    botonJugador1.classList.add("btn-secondary", "disabled");
+    botonJugador1.textContent = "Partida finalizada";
+    botonJugador2.classList.remove("habilitado", "btn-primary");
+    botonJugador2.classList.add("btn-secondary", "disabled");
+    botonJugador2.textContent = "Partida finalizada";
+}
 
     // REFRESCAR UI: puede haber cambios por actualizarRonda()
     // Actualizo todos los elementos visibles para que queden consistentes

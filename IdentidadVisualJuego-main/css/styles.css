@@ -2,3 +2,7 @@
   transform: rotate(360deg);
   transition: transform 0.5s ease;
 }
+.btn.disabled {
+  pointer-events: none;  /* 🔹 Bloquea clics */
+  opacity: 0.65;  
+}
