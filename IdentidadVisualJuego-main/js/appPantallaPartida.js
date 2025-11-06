@@ -120,7 +120,7 @@ if (ganador) {
 
     mensaje.textContent = `🏆 ¡${ganador.getNombre} ganó la partida con ${ganador.getPuntajeTotal} puntos!`;
     divResultado.style.display = "block";
-
+    
     botonJugador1.disabled = true;
     botonJugador2.disabled = true;
     // 🔹 Deshabilitar ambos botones para finalizar el juego
@@ -130,6 +130,7 @@ if (ganador) {
     botonJugador2.classList.remove("habilitado", "btn-primary");
     botonJugador2.classList.add("btn-secondary", "disabled");
     botonJugador2.textContent = "Partida finalizada";
+    lanzarConfetti();
 }
 
     // REFRESCAR UI: puede haber cambios por actualizarRonda()
@@ -145,4 +146,39 @@ if (ganador) {
     // (Opcional) si tenés un elemento para mostrar la ronda:
     const elRonda = document.getElementById('rondaActual');
     if (elRonda) elRonda.textContent = "Ronda: " + tablero.rondaActual;
+}
+const botonReiniciar = document.getElementById('reiniciar-partida');
+if (botonReiniciar) {
+    botonReiniciar.addEventListener('click', () => {
+        localStorage.removeItem('tableroJSON'); // Limpia el estado guardado
+        location.reload(); // Recarga la página para reiniciar
+    });
+}
+function lanzarConfetti() {
+    const duration = 3 * 1000; // 3 segundos
+    const animationEnd = Date.now() + duration;
+
+    const colores = ['#ff0', '#0f0', '#00f', '#f0f', '#f00', '#0ff'];
+
+    (function frame() {
+        // Lanza confetti en ambos lados
+        confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: colores
+        });
+        confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: colores
+        });
+
+        if (Date.now() < animationEnd) {
+            requestAnimationFrame(frame);
+        }
+    })();
 }
