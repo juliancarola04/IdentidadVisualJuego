@@ -99,10 +99,14 @@ function cambiarTurno(botonActual, botonSiguiente, jugadorActual, puntajeActual,
     tablero.resultadoDado = resultado;
     tablero.guardarEstado();
 
-    // <-- NO resetees aquí jugadorActual.tiroDado
-    // jugadorActual.tiroDado = false;   // <-- eliminar esta línea
+const imagenDado = document.getElementById('imagen-dado');
+const textoDado = document.getElementById('resultado-dado-texto');
 
-    // Ahora verifico si se completó la ronda (esto puede cambiar puntajes y resetear tiros)
+// Cambia la imagen según el número aleatorio
+imagenDado.src = `../imagenes/dado/cara${resultado}.png`;
+
+// Cambia el texto debajo del dado
+textoDado.textContent = `${jugadorActual.getNombre} sacó un ${resultado}`;
     tablero.actualizarRonda();
 
     // REFRESCAR UI: puede haber cambios por actualizarRonda()

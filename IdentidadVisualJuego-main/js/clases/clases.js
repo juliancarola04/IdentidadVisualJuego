@@ -102,7 +102,7 @@ export class Tablero {
         // Yo esto no lo sabía, pero tiene lógica. Si usás "this" nada más se refiere a el objeto que invocó a la función. Re útil para lo que quiero hacer.
         localStorage.setItem("tableroJSON", JSON.stringify(this)); 
     }
-    
+
     actualizarRonda() {
     // Si ambos jugadores ya tiraron
     if (this.jugadorUno.getTiradoDado && this.jugadorDos.getTiradoDado) {
@@ -117,9 +117,7 @@ export class Tablero {
             this.jugadorDos.rondasGanadas++;
         }
 
-        // Resetear puntaje actual de cada jugador para la nueva ronda
-        this.jugadorUno.puntajeActual = 0;
-        this.jugadorDos.puntajeActual = 0;
+
 
         // Resetear sus tiros
         this.jugadorUno.tiroDado = false;
