@@ -59,12 +59,8 @@ export class Jugador {
     }
 
     // Para ver el tema del random: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-    tirarDado(boton, tablero){
+    tirarDado(){
         if (this.tiroDado === false){
-            console.log("El jugador" + this.nombre + " tiró");
-            boton.classList.remove("habilitado", "btn-primary");
-            boton.classList.add("btn-secondary")
-            boton.textContent = "Tiro realizado";
             this.setTiroDado = true;
             
             const resultadoRandom = Math.floor((Math.random() * 6) + 1);
@@ -73,9 +69,6 @@ export class Jugador {
             // Mañana reviso bien a ver que onda. Para mí en el addEventListener habría que llamar a esta función y tratarla únicamente
             // como el generar un número random. El resto de cosas se hacen dentro de la función anónima del addEventListener. 
             this.setPuntajeActual = this.getPuntajeActual + resultadoRandom;
-            tablero.setResultadoDado = resultadoRandom;
-
-            tablero.guardarEstado();
             return resultadoRandom;
         }
 

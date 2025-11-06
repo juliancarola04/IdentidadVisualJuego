@@ -67,9 +67,22 @@ if (jugador2.getTiradoDado === true){
 botonJugador1.addEventListener('click', () => {
     // Hacer cositas acá. A eso me refiero con lo que escribí en la clase. Probablemente tampoco
     // debería de importarle el botonJugador ni el tablero.
+    botonJugador1.classList.remove("habilitado", "btn-primary");
+    botonJugador1.classList.add("btn-secondary")
+    botonJugador1.textContent = "Tiro realizado";    
     
-    jugador1.tirarDado(botonJugador1, tablero)
+    const resultado = jugador1.tirarDado();
+    tablero.resultadoDado = resultado;
+    tablero.guardarEstado();
+    // Acá iría document.getElementById({el id que le quieras poner a resultado dado de tablero}).textContent = tablero.resultadoDado;
 });
 botonJugador2.addEventListener('click', () => {
-    jugador2.tirarDado(botonJugador2, tablero)    
+    botonJugador2.classList.remove("habilitado", "btn-primary");
+    botonJugador2.classList.add("btn-secondary")
+    botonJugador2.textContent = "Tiro realizado";    
+    
+    const resultado = jugador2.tirarDado();
+    tablero.resultadoDado = resultado;
+    tablero.guardarEstado();
+    // Acá iría document.getElementById({el id que le quieras poner a resultado dado de tablero}).textContent = tablero.resultadoDado;    
 });
