@@ -23,6 +23,17 @@ export class Jugador {
         return this.nombre;
     }
 
+    get getpuntajeActual(){
+        return this.puntajeActual;
+    }    
+
+    get getpuntajeTotal(){
+        return this.puntajeTotal;
+    }
+    get getrondasGanadas(){
+        return this.rondasGanadas;
+    }
+
     // Para ver el tema de los setters: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
 
     set setPuntajeActual(puntajeActual){

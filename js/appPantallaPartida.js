@@ -38,3 +38,13 @@ if (JSONdeTablero === null)
     jugador2 = new Jugador(datosPartida.jugadorDos.nombre, datosPartida.jugadorDos.puntajeActual, datosPartida.jugadorDos.puntajeTotal, datosPartida.jugadorDos.rondasGanadas);
     tablero = new Tablero(jugador1, jugador2, datosPartida.rondaActual, datosPartida.resultadoDado);
 }
+
+document.getElementById('nombreJugador1').textContent = "Nombre: " + jugador1.getNombre;
+document.getElementById('puntajeActualJugador1').textContent = "Puntaje actual: " + jugador1.getpuntajeActual;
+document.getElementById('puntajeTotalJugador1').textContent = "Puntaje total: " + jugador1.getpuntajeTotal;
+document.getElementById('rondasGanadasJugador1').textContent = "Rondas ganadas: " + jugador1.getrondasGanadas;
+
+document.getElementById('nombreJugador2').textContent = "Nombre: " + jugador2.getNombre;
+document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: " + jugador2.getpuntajeActual;
+document.getElementById('puntajeTotalJugador2').textContent = "Puntaje total: " + jugador2.getpuntajeTotal;
+document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getrondasGanadas;
