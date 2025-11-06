@@ -67,24 +67,31 @@ if (jugador2.getTiradoDado === true){
 botonJugador1.addEventListener('click', () => {
     // Hacer cositas acá. A eso me refiero con lo que escribí en la clase. Probablemente tampoco
     // debería de importarle el botonJugador ni el tablero.
-    botonJugador1.classList.remove("habilitado", "btn-primary");
-    botonJugador1.classList.add("btn-secondary")
-    botonJugador1.textContent = "Tiro realizado";    
-    
     const resultado = jugador1.tirarDado();
-    tablero.resultadoDado = resultado;
-    document.getElementById('puntajeActualJugador1').textContent = "Puntaje actual: " + resultado;
-    tablero.guardarEstado();
+
+    if (resultado !== false)
+    {
+        console.log(resultado);
+        botonJugador1.classList.remove("habilitado", "btn-primary");
+        botonJugador1.classList.add("btn-secondary")
+        botonJugador1.textContent = "Tiro realizado";    
+        tablero.resultadoDado = resultado;
+        document.getElementById('puntajeActualJugador1').textContent = "Puntaje actual: " + resultado;
+        tablero.guardarEstado();
+    }
     // Acá iría document.getElementById({el id que le quieras poner a resultado dado de tablero}).textContent = tablero.resultadoDado;
 });
 botonJugador2.addEventListener('click', () => {
-    botonJugador2.classList.remove("habilitado", "btn-primary");
-    botonJugador2.classList.add("btn-secondary")
-    botonJugador2.textContent = "Tiro realizado";    
-    
     const resultado = jugador2.tirarDado();
-    tablero.resultadoDado = resultado;
-    document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: " + resultado;
-    tablero.guardarEstado();
+    
+    if (resultado !== false)
+    {
+        botonJugador2.classList.remove("habilitado", "btn-primary");
+        botonJugador2.classList.add("btn-secondary")
+        botonJugador2.textContent = "Tiro realizado";    
+        tablero.resultadoDado = resultado;
+        document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: " + resultado;
+        tablero.guardarEstado();
+    }
     // Acá iría document.getElementById({el id que le quieras poner a resultado dado de tablero}).textContent = tablero.resultadoDado;    
 });

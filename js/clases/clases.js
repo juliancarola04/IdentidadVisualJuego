@@ -71,8 +71,9 @@ export class Jugador {
             this.setPuntajeActual = this.getPuntajeActual + resultadoRandom;
             return resultadoRandom;
         }
-
-        return;
+        else {
+            return false;
+        }
     }
 }
 
