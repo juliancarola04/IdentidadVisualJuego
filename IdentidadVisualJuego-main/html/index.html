@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selección jugadores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Sol, para que el div quede centrado usé flexbox. Acá te dejo un video https://www.youtube.com/watch?v=rOQTEQkM96A -->>
+    <div class="d-flex align-items-center" style="height: 80vh;">
+        <div class="container text-center" id="containerPrincipal">
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h1>Batalla de dados</h1>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <h4>Por favor, ingresa el nombre de los jugadores.</h4>
+            </div>
+            <form>
+                <div class="row mt-5">
+                    <div class="mb-5 col-6">
+                        <label for="jugador1" class="form-label">Nombre del jugador 1</label>
+                        <input type="text" class="form-control" id="jugador1" placeholder="Ingrese aquí el nombre del jugador 1">
+                    </div>
+                    <div class="mb-5 col-6">
+                        <label for="jugador2" class="form-label">Nombre del jugador 2</label>
+                        <input type="text" class="form-control" id="jugador2" placeholder="Ingrese aquí el nombre del jugador 2">                    
+                    </div>          
+                </div>
+            </form>
+            <div class="row">
+                <div class="btn btn-success col-2 mx-auto" id="btn-empezar">Empezar partida</div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/appIndex.js"></script>
+</body>
+</html>
