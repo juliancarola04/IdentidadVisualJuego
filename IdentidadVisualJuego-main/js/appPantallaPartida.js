@@ -65,14 +65,14 @@ if (jugador2.getTiradoDado === true){
 }
 
 botonJugador1.addEventListener('click', () =>
-    cambiarTurno(botonJugador1, botonJugador2, jugador1, 'puntajeActualJugador1' ,'puntajeTotalJugador1')
+    cambiarTurno(botonJugador1, botonJugador2, jugador1, 'puntajeActualJugador1' ,'puntajeTotalJugador1', 'rondasGanadasJugador1', 'rondasGanadasJugador2' )
 
 );
 botonJugador2.addEventListener('click', () =>
-    cambiarTurno(botonJugador2, botonJugador1, jugador2, 'puntajeActualJugador2')
+    cambiarTurno(botonJugador2, botonJugador1, jugador2, 'puntajeActualJugador2', 'puntajeTotalJugador2', 'rondasGanadasJugador2', 'rondasGanadasJugador1' )
 );
 
-function cambiarTurno(botonActual, botonSiguiente, jugadorActual, puntajeactual, puntajetotal) {
+function cambiarTurno(botonActual, botonSiguiente, jugadorActual, puntajeActual, puntajeTotal, rondasGanadasJugador, rondasGanadasOponente) {
     const resultado = jugadorActual.tirarDado();
 
     if (resultado === false) return;
@@ -82,11 +82,13 @@ function cambiarTurno(botonActual, botonSiguiente, jugadorActual, puntajeactual,
     botonActual.classList.add("btn-secondary");
     botonActual.textContent = "Tiro realizado";    
 
-    // Actualizar el puntaje en el DOM
-    document.getElementById(puntajeactual).textContent = 
+    // Actualizar el puntaje en el DOM (puntaje actual del tiro y total acumulado)
+    document.getElementById(puntajeActual).textContent = 
         "Puntaje actual: " + jugadorActual.getPuntajeActual;
-    document.getElementById(puntajetotal).textContent =
-        "Puntaje total: " + jugadorActual.getPuntajeTotal;   
+    document.getElementById(puntajeTotal).textContent =
+        "Puntaje total: " + jugadorActual.getPuntajeTotal;
+    document.getElementById(rondasGanadasJugador).textContent =
+        "Rondas ganadas: " + jugadorActual.getRondasGanadas;
 
     // Habilitar el botón del otro jugador
     botonSiguiente.classList.remove("btn-secondary");
@@ -97,6 +99,23 @@ function cambiarTurno(botonActual, botonSiguiente, jugadorActual, puntajeactual,
     tablero.resultadoDado = resultado;
     tablero.guardarEstado();
 
-    // 🔹 Resetear el tiro del jugador actual para la próxima ronda
-    jugadorActual.tiroDado = false;
+    // <-- NO resetees aquí jugadorActual.tiroDado
+    // jugadorActual.tiroDado = false;   // <-- eliminar esta línea
+
+    // Ahora verifico si se completó la ronda (esto puede cambiar puntajes y resetear tiros)
+    tablero.actualizarRonda();
+
+    // REFRESCAR UI: puede haber cambios por actualizarRonda()
+    // Actualizo todos los elementos visibles para que queden consistentes
+    document.getElementById('puntajeActualJugador1').textContent = "Puntaje actual: " + jugador1.getPuntajeActual;
+    document.getElementById('puntajeTotalJugador1').textContent  = "Puntaje total: " + jugador1.getPuntajeTotal;
+    document.getElementById('rondasGanadasJugador1').textContent = "Rondas ganadas: " + jugador1.getRondasGanadas;
+
+    document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: " + jugador2.getPuntajeActual;
+    document.getElementById('puntajeTotalJugador2').textContent  = "Puntaje total: " + jugador2.getPuntajeTotal;
+    document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getRondasGanadas;
+
+    // (Opcional) si tenés un elemento para mostrar la ronda:
+    const elRonda = document.getElementById('rondaActual');
+    if (elRonda) elRonda.textContent = "Ronda: " + tablero.rondaActual;
 }
