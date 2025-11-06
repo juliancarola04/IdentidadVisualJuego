@@ -68,7 +68,8 @@ export class Jugador {
             // Esto va a andar, pero no se va a actualizar en el DOM de una. Se debería de modularizar un poco y quitar cosas de la clase.
             // Mañana reviso bien a ver que onda. Para mí en el addEventListener habría que llamar a esta función y tratarla únicamente
             // como el generar un número random. El resto de cosas se hacen dentro de la función anónima del addEventListener. 
-            this.setPuntajeActual = this.getPuntajeActual + resultadoRandom;
+            this.setPuntajeTotal = this.getPuntajeTotal + resultadoRandom;
+            this.setPuntajeActual = resultadoRandom;
             return resultadoRandom;
         }
         else {

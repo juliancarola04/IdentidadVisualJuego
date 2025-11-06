@@ -65,28 +65,38 @@ if (jugador2.getTiradoDado === true){
 }
 
 botonJugador1.addEventListener('click', () =>
-    cambiarTurno(botonJugador1, botonJugador2, jugador1, 'puntajeActualJugador1')
+    cambiarTurno(botonJugador1, botonJugador2, jugador1, 'puntajeActualJugador1' ,'puntajeTotalJugador1')
+
 );
 botonJugador2.addEventListener('click', () =>
     cambiarTurno(botonJugador2, botonJugador1, jugador2, 'puntajeActualJugador2')
 );
 
-function cambiarTurno(botonActual, botonSiguiente, jugadorActual, idPuntaje) {
+function cambiarTurno(botonActual, botonSiguiente, jugadorActual, puntajeactual, puntajetotal) {
     const resultado = jugadorActual.tirarDado();
 
     if (resultado === false) return;
 
+    // Deshabilitar el botón actual (ya tiró)
     botonActual.classList.remove("habilitado", "btn-primary");
     botonActual.classList.add("btn-secondary");
     botonActual.textContent = "Tiro realizado";    
 
-    document.getElementById(idPuntaje).textContent = 
+    // Actualizar el puntaje en el DOM
+    document.getElementById(puntajeactual).textContent = 
         "Puntaje actual: " + jugadorActual.getPuntajeActual;
+    document.getElementById(puntajetotal).textContent =
+        "Puntaje total: " + jugadorActual.getPuntajeTotal;   
 
+    // Habilitar el botón del otro jugador
     botonSiguiente.classList.remove("btn-secondary");
     botonSiguiente.classList.add("habilitado", "btn-primary");
     botonSiguiente.textContent = "Tirar dado";
 
+    // Guardar resultado del dado y estado del tablero
     tablero.resultadoDado = resultado;
     tablero.guardarEstado();
+
+    // 🔹 Resetear el tiro del jugador actual para la próxima ronda
+    jugadorActual.tiroDado = false;
 }
