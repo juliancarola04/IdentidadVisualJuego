@@ -1,0 +1,4 @@
+#imagen-dado.rodando {
+  transform: rotate(360deg);
+  transition: transform 0.5s ease;
+}

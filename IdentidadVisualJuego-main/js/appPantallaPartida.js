@@ -102,11 +102,13 @@ function cambiarTurno(botonActual, botonSiguiente, jugadorActual, puntajeActual,
 const imagenDado = document.getElementById('imagen-dado');
 const textoDado = document.getElementById('resultado-dado-texto');
 
-// Cambia la imagen según el número aleatorio
-imagenDado.src = `../imagenes/dado/cara${resultado}.png`;
+imagenDado.classList.add("rodando");
+setTimeout(() => {
+  imagenDado.src = `../imagenes/dado/cara${resultado}.png`;
+  imagenDado.classList.remove("rodando");
+  textoDado.textContent = `${jugadorActual.getNombre} sacó un ${resultado}`;
+}, 500);
 
-// Cambia el texto debajo del dado
-textoDado.textContent = `${jugadorActual.getNombre} sacó un ${resultado}`;
     tablero.actualizarRonda();
 
     // REFRESCAR UI: puede haber cambios por actualizarRonda()
