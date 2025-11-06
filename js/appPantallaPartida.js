@@ -73,6 +73,7 @@ botonJugador1.addEventListener('click', () => {
     
     const resultado = jugador1.tirarDado();
     tablero.resultadoDado = resultado;
+    document.getElementById('puntajeActualJugador1').textContent = "Puntaje actual: " + resultado;
     tablero.guardarEstado();
     // Acá iría document.getElementById({el id que le quieras poner a resultado dado de tablero}).textContent = tablero.resultadoDado;
 });
@@ -83,6 +84,7 @@ botonJugador2.addEventListener('click', () => {
     
     const resultado = jugador2.tirarDado();
     tablero.resultadoDado = resultado;
+    document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: " + resultado;
     tablero.guardarEstado();
     // Acá iría document.getElementById({el id que le quieras poner a resultado dado de tablero}).textContent = tablero.resultadoDado;    
 });
