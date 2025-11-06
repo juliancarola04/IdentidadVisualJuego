@@ -23,34 +23,53 @@ if (JSONdeTablero === null)
     jugador1 = new Jugador(JSONdeJugadores[0]);
     jugador2 = new Jugador(JSONdeJugadores[1]);
     tablero = new Tablero(jugador1, jugador2);
-
+    
     localStorage.removeItem("nombreJugadoresJSON"); // Acá elimino el localStorage de los jugadores ya que no va a ser necesario
     localStorage.setItem("tableroJSON", JSON.stringify(tablero)); // Acá guardo en el localStorage el estado inicial del tablero (se va a ir actualizando después).
-
+    
 } else {
-
+    
     // Si hay un tablero almacenado, parte desde ahí.
     console.log("Hay una partida almacenada")
-
+    
     const datosPartida = JSONdeTablero;
-
-    jugador1 = new Jugador(datosPartida.jugadorUno.nombre, datosPartida.jugadorUno.puntajeActual, datosPartida.jugadorUno.puntajeTotal, datosPartida.jugadorUno.rondasGanadas);
-    jugador2 = new Jugador(datosPartida.jugadorDos.nombre, datosPartida.jugadorDos.puntajeActual, datosPartida.jugadorDos.puntajeTotal, datosPartida.jugadorDos.rondasGanadas);
+    
+    jugador1 = new Jugador(datosPartida.jugadorUno.nombre, datosPartida.jugadorUno.puntajeActual, datosPartida.jugadorUno.puntajeTotal, datosPartida.jugadorUno.rondasGanadas, datosPartida.jugadorUno.tiroDado);
+    jugador2 = new Jugador(datosPartida.jugadorDos.nombre, datosPartida.jugadorDos.puntajeActual, datosPartida.jugadorDos.puntajeTotal, datosPartida.jugadorDos.rondasGanadas, datosPartida.jugadorDos.tiroDado);
     tablero = new Tablero(jugador1, jugador2, datosPartida.rondaActual, datosPartida.resultadoDado);
 }
 
 document.getElementById('nombreJugador1').textContent = "Nombre: " + jugador1.getNombre;
-document.getElementById('puntajeActualJugador1').textContent = "Puntaje actual: " + jugador1.getpuntajeActual;
-document.getElementById('puntajeTotalJugador1').textContent = "Puntaje total: " + jugador1.getpuntajeTotal;
-document.getElementById('rondasGanadasJugador1').textContent = "Rondas ganadas: " + jugador1.getrondasGanadas;
+document.getElementById('puntajeActualJugador1').textContent = "Puntaje actual: " + jugador1.getPuntajeActual;
+document.getElementById('puntajeTotalJugador1').textContent = "Puntaje total: " + jugador1.getPuntajeTotal;
+document.getElementById('rondasGanadasJugador1').textContent = "Rondas ganadas: " + jugador1.getRondasGanadas;
 
 document.getElementById('nombreJugador2').textContent = "Nombre: " + jugador2.getNombre;
-document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: " + jugador2.getpuntajeActual;
-document.getElementById('puntajeTotalJugador2').textContent = "Puntaje total: " + jugador2.getpuntajeTotal;
-document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getrondasGanadas;
+document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: " + jugador2.getPuntajeActual;
+document.getElementById('puntajeTotalJugador2').textContent = "Puntaje total: " + jugador2.getPuntajeTotal;
+document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getRondasGanadas;
 
 const botonJugador1 = document.getElementById('tirarDadoJugador1');
 const botonJugador2 = document.getElementById('tirarDadoJugador2');
 
-botonJugador1.addEventListener('click', () => jugador1.tirarDado(botonJugador1, tablero));
-botonJugador2.addEventListener('click', () => jugador2.tirarDado(botonJugador2, tablero));
+if (jugador1.getTiradoDado === true){
+    botonJugador1.classList.remove("habilitado", "btn-primary");
+    botonJugador1.classList.add("btn-secondary")
+    botonJugador1.textContent = "Tiro realizado";
+}
+
+if (jugador2.getTiradoDado === true){
+    botonJugador2.classList.remove("habilitado", "btn-primary");
+    botonJugador2.classList.add("btn-secondary")
+    botonJugador2.textContent = "Tiro realizado";
+}
+
+botonJugador1.addEventListener('click', () => {
+    // Hacer cositas acá. A eso me refiero con lo que escribí en la clase. Probablemente tampoco
+    // debería de importarle el botonJugador ni el tablero.
+    
+    jugador1.tirarDado(botonJugador1, tablero)
+});
+botonJugador2.addEventListener('click', () => {
+    jugador2.tirarDado(botonJugador2, tablero)    
+});
