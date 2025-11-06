@@ -1,11 +1,13 @@
 // Para ver el tema de las clases: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
 
 export class Jugador {
+
     // Lo ideal sería poner estas propiedades en privado y después modificar sus valores con los setters,
     // pero hay problemas con el JSON si se hace. Investigar un poco más después.
     puntajeActual;
     puntajeTotal;
     rondasGanadas;
+    tiroJugador = false;
     
     // Sol, JS a diferencia de C# no puede tener varios constructores, así que para que después se pueda utilizar esta clase
     // a la hora de empezar una partida con datos ya guardados tengo que ponerle varios parámetros que por defecto empiezan en 0. 
@@ -35,7 +37,6 @@ export class Jugador {
     }
 
     // Para ver el tema de los setters: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
-
     set setPuntajeActual(puntajeActual){
         this.puntajeActual = puntajeActual;
     }
@@ -49,12 +50,21 @@ export class Jugador {
     }    
 
     // Para ver el tema del random: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-    tirarDado(){
-        return Math.floor((Math.random() * 6) + 1);
+    tirarDado(boton){
+        if (this.tiroJugador === false){
+            console.log("El jugador" + this.nombre + " tiró");
+            boton.classList.remove("habilitado", "btn-primary");
+            boton.classList.add("btn-secondary")
+            boton.textContent = "Tiro realizado";
+            this.tiroJugador = true;
+            return Math.floor((Math.random() * 6) + 1);
+        }
+        return;
     }
 }
 
 export class Tablero {
+    
     rondaActual;
     resultadoDado;
 

@@ -48,3 +48,9 @@ document.getElementById('nombreJugador2').textContent = "Nombre: " + jugador2.ge
 document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: " + jugador2.getpuntajeActual;
 document.getElementById('puntajeTotalJugador2').textContent = "Puntaje total: " + jugador2.getpuntajeTotal;
 document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getrondasGanadas;
+
+const botonJugador1 = document.getElementById('tirarDadoJugador1');
+const botonJugador2 = document.getElementById('tirarDadoJugador2');
+
+botonJugador1.addEventListener('click', () => jugador1.tirarDado(botonJugador1));
+botonJugador2.addEventListener('click', () => jugador2.tirarDado(botonJugador2));
