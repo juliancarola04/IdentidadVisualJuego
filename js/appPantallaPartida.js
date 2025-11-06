@@ -53,15 +53,11 @@ const botonJugador1 = document.getElementById('tirarDadoJugador1');
 const botonJugador2 = document.getElementById('tirarDadoJugador2');
 
 if (jugador1.getTiradoDado === true){
-    botonJugador1.classList.remove("habilitado", "btn-primary");
-    botonJugador1.classList.add("btn-secondary")
-    botonJugador1.textContent = "Tiro realizado";
+    quitarBoton(botonJugador1);
 }
 
 if (jugador2.getTiradoDado === true){
-    botonJugador2.classList.remove("habilitado", "btn-primary");
-    botonJugador2.classList.add("btn-secondary")
-    botonJugador2.textContent = "Tiro realizado";
+    quitarBoton(botonJugador2);
 }
 
 botonJugador1.addEventListener('click', () => {
@@ -72,26 +68,55 @@ botonJugador1.addEventListener('click', () => {
     if (resultado !== false)
     {
         console.log(resultado);
-        botonJugador1.classList.remove("habilitado", "btn-primary");
-        botonJugador1.classList.add("btn-secondary")
-        botonJugador1.textContent = "Tiro realizado";    
-        tablero.resultadoDado = resultado;
+        quitarBoton(botonJugador1);
+        tablero.setResultadoDado = resultado;
         document.getElementById('puntajeActualJugador1').textContent = "Puntaje actual: " + resultado;
+        document.getElementById('puntajeTotalJugador1').textContent = "Puntaje total: " + jugador1.getPuntajeTotal;
         tablero.guardarEstado();
     }
-    // Acá iría document.getElementById({el id que le quieras poner a resultado dado de tablero}).textContent = tablero.resultadoDado;
+    comportamientoComprobacion("rondaActual");
 });
 botonJugador2.addEventListener('click', () => {
     const resultado = jugador2.tirarDado();
     
     if (resultado !== false)
     {
-        botonJugador2.classList.remove("habilitado", "btn-primary");
-        botonJugador2.classList.add("btn-secondary")
-        botonJugador2.textContent = "Tiro realizado";    
-        tablero.resultadoDado = resultado;
+        quitarBoton(botonJugador2);  
+        tablero.setResultadoDado = resultado;
         document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: " + resultado;
+        document.getElementById('puntajeTotalJugador2').textContent = "Puntaje total: " + jugador2.getPuntajeTotal;
+        document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getRondasGanadas;
         tablero.guardarEstado();
     }
-    // Acá iría document.getElementById({el id que le quieras poner a resultado dado de tablero}).textContent = tablero.resultadoDado;    
+
+    comportamientoComprobacion("rondaActual");
 });
+
+function comportamientoComprobacion(id){
+    if(tablero.jugadorUno.tiroDado === true && tablero.jugadorDos.tiroDado === true){
+        if (tablero.jugadorUno.puntajeActual > tablero.jugadorDos.puntajeActual){
+            jugador1.setRondasGanadas = jugador1.getRondasGanadas + 1;
+            document.getElementById('rondasGanadasJugador1').textContent = "Rondas ganadas: " + jugador1.getRondasGanadas;
+        } else if(tablero.jugadorUno.puntajeActual < tablero.jugadorDos.puntajeActual){
+            jugador2.setRondasGanadas = jugador2.getRondasGanadas + 1;
+            document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador1.getRondasGanadas;
+        } else {
+            tablero.setRondasEmpatadas = tablero.getRondasEmpatadas + 1;
+        }
+
+        tablero.setRondaActual = tablero.getRondaActual + 1;
+        jugador1.setTiroDado = false;
+        jugador2.setTiroDado = false;
+
+        tablero.guardarEstado();       
+    }
+
+    const rondaActual = document.getElementById(id);
+    rondaActual.textContent = tablero.getRondaActual;
+}
+
+function quitarBoton(boton){
+    boton.classList.remove("habilitado", "btn-primary");
+    boton.classList.add("btn-secondary")
+    boton.textContent = "Tiro realizado";    
+}

@@ -68,7 +68,8 @@ export class Jugador {
             // Esto va a andar, pero no se va a actualizar en el DOM de una. Se debería de modularizar un poco y quitar cosas de la clase.
             // Mañana reviso bien a ver que onda. Para mí en el addEventListener habría que llamar a esta función y tratarla únicamente
             // como el generar un número random. El resto de cosas se hacen dentro de la función anónima del addEventListener. 
-            this.setPuntajeActual = this.getPuntajeActual + resultadoRandom;
+            this.setPuntajeActual = resultadoRandom;
+            this.setPuntajeTotal = this.getPuntajeTotal + resultadoRandom;
             return resultadoRandom;
         }
         else {
@@ -81,12 +82,16 @@ export class Tablero {
     
     rondaActual;
     resultadoDado;
+    jugadorUno;
+    jugadorDos;
+    rondasEmpatadas;
 
-    constructor (jugadorUno, jugadorDos, rondaActual = 0, resultadoDado = 0){
+    constructor (jugadorUno, jugadorDos, rondaActual = 0, resultadoDado = 0, rondasEmpatadas = 0){
         this.jugadorUno = jugadorUno;
         this.jugadorDos = jugadorDos;
         this.rondaActual = rondaActual;
-        this.resultadoDado = resultadoDado
+        this.resultadoDado = resultadoDado;
+        this.rondasEmpatadas = rondasEmpatadas;
     }
 
     set setResultadoDado(resultadoDado){
@@ -95,6 +100,30 @@ export class Tablero {
 
     set setRondaActual(rondaActual){
         this.rondaActual = rondaActual;
+    }
+
+    set setRondasEmpatadas(rondasEmpatadas){
+        this.rondasEmpatadas = this.rondasEmpatadas;
+    }
+
+    get getRondaActual(){
+        return this.rondaActual;
+    }
+
+    get getResultadoDado(){
+        return this.resultadoDado;
+    }
+
+    get getJugadorUno(){
+        return this.jugadorUno;
+    }
+
+    get getJugadorDos(){
+        return this.jugadorDos;
+    }
+    
+    get getRondasEmpatadas(){
+        return this.rondasEmpatadas;
     }
 
     guardarEstado(){
