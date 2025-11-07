@@ -39,20 +39,13 @@ if (JSONdeTablero === null)
     tablero = new Tablero(jugador1, jugador2, datosPartida.rondaActual, datosPartida.resultadoDado);
 }
 
-document.getElementById('nombreJugador1').textContent = "Nombre: " + jugador1.getNombre;
-document.getElementById('puntajeActualJugador1').textContent = "Puntaje actual: " + jugador1.getPuntajeActual;
-document.getElementById('puntajeTotalJugador1').textContent = "Puntaje total: " + jugador1.getPuntajeTotal;
-document.getElementById('rondasGanadasJugador1').textContent = "Rondas ganadas: " + jugador1.getRondasGanadas;
-
-document.getElementById('nombreJugador2').textContent = "Nombre: " + jugador2.getNombre;
-document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: " + jugador2.getPuntajeActual;
-document.getElementById('puntajeTotalJugador2').textContent = "Puntaje total: " + jugador2.getPuntajeTotal;
-document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getRondasGanadas;
-
-document.getElementById('rondaActual').textContent = "Ronda actual: " + tablero.getRondaActual;
+dibujarTablero();
 
 const botonJugador1 = document.getElementById('tirarDadoJugador1');
 const botonJugador2 = document.getElementById('tirarDadoJugador2');
+
+const headerGanador = document.getElementById("ganador");
+
 
 if (jugador1.getTiradoDado === true){
     quitarBoton(botonJugador1);
@@ -65,6 +58,7 @@ if (jugador2.getTiradoDado === true){
 botonJugador1.addEventListener('click', () => {
     // Hacer cositas acá. A eso me refiero con lo que escribí en la clase. Probablemente tampoco
     // debería de importarle el botonJugador ni el tablero.
+    headerGanador.textContent = "";
     if (tablero.getDadoSiendoTirado === false && jugador1.getTiradoDado === false){
         const resultado = jugador1.tirarDado();
         const cantidadTiempoEsperar = 500;    
@@ -97,6 +91,7 @@ botonJugador1.addEventListener('click', () => {
 
 
 botonJugador2.addEventListener('click', () => {
+    headerGanador.textContent = "";
     if(tablero.getDadoSiendoTirado === false && jugador2.getTiradoDado === false){
         const resultado = jugador2.tirarDado();
         const cantidadTiempoEsperar = 500;
@@ -141,15 +136,12 @@ function comportamientoComprobacion(id){
         }
 
         if (jugador1.getRondasGanadas === 5 || jugador2.getRondasGanadas === 5) {
-            // Pass in the id of an element
-            let confetti = new Confetti('containerConfite');
-
-            // Edit given parameters
-            confetti.setCount(75);
-            confetti.setSize(1);
-            confetti.setPower(25);
-            confetti.setFade(false);
-            confetti.destroyTarget(false);             
+            confetti();
+            if (jugador1.getRondasGanadas === 5){
+                ganador(jugador1);
+            } else {
+                ganador(jugador2);
+            }
         }
 
         agregarBoton(botonJugador1);
@@ -175,4 +167,32 @@ function agregarBoton (boton){
     boton.classList.remove("btn-secondary");
     boton.classList.add("habilitado", "btn-primary")
     boton.textContent = "Tirar dado";    
+}
+
+function ganador(jugador){
+    headerGanador.textContent = `${jugador.getNombre} gano!`;
+    tablero.setRondaActual = 0;
+    jugador1.setRondaActual = 0;
+    jugador1.setRondasGanadas = 0;
+    jugador2.setRondasGanadas = 0;
+    jugador2.setRondaActual = 0;
+    jugador1.puntajeActual = 0;
+    jugador2.puntajeActual = 0;
+    jugador1.puntajeTotal = 0;
+    jugador2.puntajeTotal = 0;
+    dibujarTablero();
+}
+
+function dibujarTablero(){
+    document.getElementById('nombreJugador1').textContent = "Nombre: " + jugador1.getNombre;
+    document.getElementById('puntajeActualJugador1').textContent = "Puntaje actual: " + jugador1.getPuntajeActual;
+    document.getElementById('puntajeTotalJugador1').textContent = "Puntaje total: " + jugador1.getPuntajeTotal;
+    document.getElementById('rondasGanadasJugador1').textContent = "Rondas ganadas: " + jugador1.getRondasGanadas;
+
+    document.getElementById('nombreJugador2').textContent = "Nombre: " + jugador2.getNombre;
+    document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: " + jugador2.getPuntajeActual;
+    document.getElementById('puntajeTotalJugador2').textContent = "Puntaje total: " + jugador2.getPuntajeTotal;
+    document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getRondasGanadas;
+
+    document.getElementById('rondaActual').textContent = "Ronda actual: " + tablero.getRondaActual;    
 }
