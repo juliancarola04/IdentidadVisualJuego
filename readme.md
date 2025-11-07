@@ -37,7 +37,7 @@
 
 ## Partida en funcionamiento
 
-<video src="videos/grabacionPartida.mp4" width="320" height="240" controls></video>
+[![Watch the video](https://img.youtube.com/vi/HV1wXCph0nQ/maxresdefault.jpg)](https://youtu.be/HV1wXCph0nQ)
 
 ## Ilustación de la pantalla del juego
 
