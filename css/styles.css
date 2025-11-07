@@ -2,7 +2,10 @@
   transform: rotate(360deg);
   transition: transform 0.5s ease;
 }
-.btn.disabled {
-  pointer-events: none;  /* 🔹 Bloquea clics */
-  opacity: 0.65;  
+
+#zona-dado {
+    background-image: url('../imagenes/pantallaJuego/medieval-tavern-wood-stockcake.jpg');
+    background-size: cover;   
+    background-position: center;
+    background-repeat: no-repeat;  
 }

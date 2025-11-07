@@ -31,12 +31,10 @@ if (JSONdeTablero === null)
     
     // Si hay un tablero almacenado, parte desde ahí.
     console.log("Hay una partida almacenada")
-    
-    const datosPartida = JSONdeTablero;
-    
-    jugador1 = new Jugador(datosPartida.jugadorUno.nombre, datosPartida.jugadorUno.puntajeActual, datosPartida.jugadorUno.puntajeTotal, datosPartida.jugadorUno.rondasGanadas, datosPartida.jugadorUno.tiroDado);
-    jugador2 = new Jugador(datosPartida.jugadorDos.nombre, datosPartida.jugadorDos.puntajeActual, datosPartida.jugadorDos.puntajeTotal, datosPartida.jugadorDos.rondasGanadas, datosPartida.jugadorDos.tiroDado);
-    tablero = new Tablero(jugador1, jugador2, datosPartida.rondaActual, datosPartida.resultadoDado);
+        
+    jugador1 = new Jugador(JSONdeTablero.jugadorUno.nombre, JSONdeTablero.jugadorUno.puntajeActual, JSONdeTablero.jugadorUno.puntajeTotal, JSONdeTablero.jugadorUno.rondasGanadas, JSONdeTablero.jugadorUno.tiroDado);
+    jugador2 = new Jugador(JSONdeTablero.jugadorDos.nombre, JSONdeTablero.jugadorDos.puntajeActual, JSONdeTablero.jugadorDos.puntajeTotal, JSONdeTablero.jugadorDos.rondasGanadas, JSONdeTablero.jugadorDos.tiroDado);
+    tablero = new Tablero(jugador1, jugador2, JSONdeTablero.rondaActual, JSONdeTablero.resultadoDado);
 }
 
 dibujarTablero();
@@ -141,16 +139,6 @@ function agregarBoton (boton){
 
 function ganador(jugador){
     headerGanador.textContent = `${jugador.getNombre} gano!`;
-    // tablero.setRondaActual = 0;
-    // jugador1.setRondaActual = 0;
-    // jugador1.setRondasGanadas = 0;
-    // jugador2.setRondasGanadas = 0;
-    // jugador2.setRondaActual = 0;
-    // jugador1.puntajeActual = 0;
-    // jugador2.puntajeActual = 0;
-    // jugador1.puntajeTotal = 0;
-    // jugador2.puntajeTotal = 0;
-    // dibujarTablero();
 }
 
 function dibujarTablero(){
