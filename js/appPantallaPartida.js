@@ -111,16 +111,19 @@ function comportamientoComprobacion(id){
         if (tablero.jugadorUno.puntajeActual > tablero.jugadorDos.puntajeActual){ // La ronda la gana el jugador 1
             jugador1.setRondasGanadas = jugador1.getRondasGanadas + 1;
             document.getElementById('rondasGanadasJugador1').textContent = "Rondas ganadas: " + jugador1.getRondasGanadas;
+            document.getElementById('ganador').textContent = `${jugador1.nombre} ganó la ronda!`                        
             postTirarDadoSinGanar(botonJugador1, botonJugador2); // Función comentada más adelante
             tablero.setRondaActual = tablero.getRondaActual + 1;
         } else if(tablero.jugadorUno.puntajeActual < tablero.jugadorDos.puntajeActual){ // La ronda la gana el jugador 2
             jugador2.setRondasGanadas = jugador2.getRondasGanadas + 1;
             document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getRondasGanadas;
+            document.getElementById('ganador').textContent = `${jugador2.nombre} ganó la ronda!`                        
             postTirarDadoSinGanar(botonJugador1, botonJugador2);
             tablero.setRondaActual = tablero.getRondaActual + 1;
         } else { // La ronda es empatada.
             postTirarDadoSinGanar(botonJugador1, botonJugador2);
             tablero.setRondaActual = tablero.getRondaActual + 1;
+            document.getElementById('ganador').textContent = `Empataron!`                        
         }
 
         // Comprobación de ver si alguno de los dos ganó
