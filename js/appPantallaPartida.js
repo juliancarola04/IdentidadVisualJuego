@@ -85,6 +85,7 @@ botonReiniciar.addEventListener('click', () => {
     const textoDado = document.getElementById('resultado-dado-texto');    
     textoDado.textContent = "Tirá el dado para empezar";
     tablero.setHayGanador = false;
+    headerGanador.textContent = "";
 
     tablero.guardarEstado();
     dibujarTablero();    
@@ -168,7 +169,7 @@ function dibujarTablero(){
 }
 
 function funcionalidadBotonesJugadores(jugador, numJugador, boton, tablero){
-    headerGanador.textContent = "";
+    
     if(tablero.getDadoSiendoTirado === false && jugador.getTiradoDado === false && tablero.getHayGanador === false){
         const resultado = jugador.tirarDado();
         const cantidadTiempoEsperar = 500;
