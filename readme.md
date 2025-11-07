@@ -35,6 +35,10 @@
     <li>Del lado del jugador se han de mostrar los nombres, imágenes del jugador, puntos actuales (cara que sacó en esa ronda, 0 si no tiró aún), puntos totales (suma de las caras a lo largo de las rondas) y rondas ganadas.</li>
 </ul>
 
+## Partida en funcionamiento
+
+<video src="videos/grabacionPartida.mp4" width="320" height="240" controls></video>
+
 ## Ilustación de la pantalla del juego
 
 ![Ilustación de la pantalla del juego](/imagenes/imagenesReadme/ilustacionSegundaPantalla.png "Pantalla del juego")
