@@ -65,59 +65,71 @@ if (jugador2.getTiradoDado === true){
 botonJugador1.addEventListener('click', () => {
     // Hacer cositas acá. A eso me refiero con lo que escribí en la clase. Probablemente tampoco
     // debería de importarle el botonJugador ni el tablero.
-    const resultado = jugador1.tirarDado();
-
-    const imagenDado = document.getElementById('imagen-dado');
-    const textoDado = document.getElementById('resultado-dado-texto');    
-
-    imagenDado.classList.add("rodando");
-
-    setTimeout(() => {
-        imagenDado.src = `../imagenes/carasDado/cara${resultado}.png`;
-        imagenDado.classList.remove("rodando");    
-        textoDado.textContent = `${jugador1.getNombre} sacó un ${resultado}`;            
-    }, 500);
-
-    if (resultado !== false)
-    {
-        console.log(resultado);
-        quitarBoton(botonJugador1);
-        tablero.setResultadoDado = resultado;
-        document.getElementById('puntajeActualJugador1').textContent = "Puntaje actual: " + resultado;
-        document.getElementById('puntajeTotalJugador1').textContent = "Puntaje total: " + jugador1.getPuntajeTotal;
-        tablero.guardarEstado();
-    }
-    comportamientoComprobacion("rondaActual");
-});
-botonJugador2.addEventListener('click', () => {
-    const resultado = jugador2.tirarDado();
+    if (tablero.getDadoSiendoTirado === false && jugador1.getTiradoDado === false){
+        const resultado = jugador1.tirarDado();
+        const cantidadTiempoEsperar = 500;    
     
-    const imagenDado = document.getElementById('imagen-dado');
-    const textoDado = document.getElementById('resultado-dado-texto');    
-
-    imagenDado.classList.add("rodando");
-
-    setTimeout(() => {
-        imagenDado.src = `../imagenes/carasDado/cara${resultado}.png`;
-        imagenDado.classList.remove("rodando");    
-        textoDado.textContent = `${jugador2.getNombre} sacó un ${resultado}`;            
-    }, 500);
-
-    if (resultado !== false)
-    {
-        quitarBoton(botonJugador2);  
-        tablero.setResultadoDado = resultado;
-        document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: " + resultado;
-        document.getElementById('puntajeTotalJugador2').textContent = "Puntaje total: " + jugador2.getPuntajeTotal;
-        document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getRondasGanadas;
-        tablero.guardarEstado();
+        const imagenDado = document.getElementById('imagen-dado');
+        const textoDado = document.getElementById('resultado-dado-texto');
+        quitarBoton(botonJugador1);
+     
+        imagenDado.classList.add("rodando");
+        tablero.setDadoSiendoTirado = true;
+    
+        setTimeout(() => {
+            imagenDado.src = `../imagenes/carasDado/cara${resultado}.png`;
+            imagenDado.classList.remove("rodando");    
+            textoDado.textContent = `${jugador1.getNombre} sacó un ${resultado}`;
+            tablero.setDadoSiendoTirado = false;
+    
+            if (resultado !== false)
+            {
+                console.log(resultado);
+                tablero.setResultadoDado = resultado;
+                document.getElementById('puntajeActualJugador1').textContent = "Puntaje actual: " + resultado;
+                document.getElementById('puntajeTotalJugador1').textContent = "Puntaje total: " + jugador1.getPuntajeTotal;
+                tablero.guardarEstado();
+            }
+            comportamientoComprobacion("rondaActual");
+        }, cantidadTiempoEsperar);
     }
+});
 
-    comportamientoComprobacion("rondaActual");
+
+botonJugador2.addEventListener('click', () => {
+    if(tablero.getDadoSiendoTirado === false && jugador2.getTiradoDado === false){
+        const resultado = jugador2.tirarDado();
+        const cantidadTiempoEsperar = 500;
+        
+        const imagenDado = document.getElementById('imagen-dado');
+        const textoDado = document.getElementById('resultado-dado-texto');    
+        quitarBoton(botonJugador2);  
+    
+        imagenDado.classList.add("rodando");
+        tablero.setDadoSiendoTirado = true;
+    
+        setTimeout(() => {
+            imagenDado.src = `../imagenes/carasDado/cara${resultado}.png`;
+            imagenDado.classList.remove("rodando");    
+            textoDado.textContent = `${jugador2.getNombre} sacó un ${resultado}`;
+            tablero.setDadoSiendoTirado = false;
+    
+            if (resultado !== false)
+            {
+                tablero.setResultadoDado = resultado;
+                document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: " + resultado;
+                document.getElementById('puntajeTotalJugador2').textContent = "Puntaje total: " + jugador2.getPuntajeTotal;
+                document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getRondasGanadas;
+                tablero.guardarEstado();
+            }
+        
+            comportamientoComprobacion("rondaActual");
+        }, cantidadTiempoEsperar); 
+    }
 });
 
 function comportamientoComprobacion(id){
-    if(tablero.jugadorUno.tiroDado === true && tablero.jugadorDos.tiroDado === true){
+    if(tablero.jugadorUno.tiroDado === true && tablero.jugadorDos.tiroDado === true && tablero.getDadoSiendoTirado === false){
         if (tablero.jugadorUno.puntajeActual > tablero.jugadorDos.puntajeActual){
             jugador1.setRondasGanadas = jugador1.getRondasGanadas + 1;
             document.getElementById('rondasGanadasJugador1').textContent = "Rondas ganadas: " + jugador1.getRondasGanadas;
@@ -126,6 +138,18 @@ function comportamientoComprobacion(id){
             document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getRondasGanadas;
         } else {
             tablero.setRondasEmpatadas = tablero.getRondasEmpatadas + 1;
+        }
+
+        if (jugador1.getRondasGanadas === 5 || jugador2.getRondasGanadas === 5) {
+            // Pass in the id of an element
+            let confetti = new Confetti('containerConfite');
+
+            // Edit given parameters
+            confetti.setCount(75);
+            confetti.setSize(1);
+            confetti.setPower(25);
+            confetti.setFade(false);
+            confetti.destroyTarget(false);             
         }
 
         agregarBoton(botonJugador1);
