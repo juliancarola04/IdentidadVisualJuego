@@ -8,16 +8,18 @@ export class Jugador {
     puntajeTotal;
     rondasGanadas;
     tiroDado;
+    numeroTiradas;
     
     // Sol, JS a diferencia de C# no puede tener varios constructores, así que para que después se pueda utilizar esta clase
     // a la hora de empezar una partida con datos ya guardados tengo que ponerle varios parámetros que por defecto empiezan en 0. 
     // Cuando se pasa un valor correspondiente a esos campos se cambia el valor por defecto al que se pasó.  
-    constructor (nombre, puntajeActual = 0, puntajeTotal = 0, rondasGanadas = 0, tiroDado = false){
+    constructor (nombre, puntajeActual = 0, puntajeTotal = 0, rondasGanadas = 0, tiroDado = false, numeroTiradas = 0){
         this.nombre = nombre;
         this.puntajeActual = puntajeActual;
         this.puntajeTotal = puntajeTotal;
         this.rondasGanadas = rondasGanadas;
         this.tiroDado = tiroDado;
+        this.numeroTiradas = numeroTiradas;
     }
 
     // Para ver el tema de los getters: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
@@ -37,8 +39,12 @@ export class Jugador {
         return this.rondasGanadas;
     }
 
-    get getTiradoDado(){
+    get getTiroDado(){
         return this.tiroDado;
+    }
+
+    get getNumeroTiradas(){
+        return this.numeroTiradas;
     }
 
     // Para ver el tema de los setters: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
@@ -58,23 +64,20 @@ export class Jugador {
         this.tiroDado = tiroDado;
     }
 
+    set setNumeroTiradas(numeroTiradas){
+        this.numeroTiradas = numeroTiradas;
+    }
+
     // Para ver el tema del random: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
     tirarDado(){
-        if (this.tiroDado === false){
-            this.setTiroDado = true;
-            
-            const resultadoRandom = Math.floor((Math.random() * 6) + 1);
+        this.setTiroDado = true; // Establezco que el jugador tiró el dado
+        
+        const resultadoRandom = Math.floor((Math.random() * 6) + 1); // Genera un valor aleatorio entre 1 y 6. Si no se le suma 1 no va a incluir al 6.
 
-            // Esto va a andar, pero no se va a actualizar en el DOM de una. Se debería de modularizar un poco y quitar cosas de la clase.
-            // Mañana reviso bien a ver que onda. Para mí en el addEventListener habría que llamar a esta función y tratarla únicamente
-            // como el generar un número random. El resto de cosas se hacen dentro de la función anónima del addEventListener. 
-            this.setPuntajeActual = resultadoRandom;
-            this.setPuntajeTotal = this.getPuntajeTotal + resultadoRandom;
-            return resultadoRandom;
-        }
-        else {
-            return false;
-        }
+        // Y establezco cuál es su resultado total y actual.
+        this.setPuntajeActual = resultadoRandom;
+        this.setPuntajeTotal = this.getPuntajeTotal + resultadoRandom;
+        return resultadoRandom;
     }
 }
 
@@ -84,16 +87,14 @@ export class Tablero {
     resultadoDado;
     jugadorUno;
     jugadorDos;
-    rondasEmpatadas;
     dadoSiendoTirado;
     hayGanador;
 
-    constructor (jugadorUno, jugadorDos, rondaActual = 1, resultadoDado = 0, rondasEmpatadas = 0, dadoSiendoTirado = false, hayGanador = false){
+    constructor (jugadorUno, jugadorDos, rondaActual = 1, resultadoDado = 0, dadoSiendoTirado = false, hayGanador = false){
         this.jugadorUno = jugadorUno;
         this.jugadorDos = jugadorDos;
         this.rondaActual = rondaActual;
         this.resultadoDado = resultadoDado;
-        this.rondasEmpatadas = rondasEmpatadas;
         this.dadoSiendoTirado = dadoSiendoTirado;
         this.hayGanador = hayGanador;
     }
@@ -104,10 +105,6 @@ export class Tablero {
 
     set setRondaActual(rondaActual){
         this.rondaActual = rondaActual;
-    }
-
-    set setRondasEmpatadas(rondasEmpatadas){
-        this.rondasEmpatadas = rondasEmpatadas;
     }
 
     set setDadoSiendoTirado(dadoSiendoTirado){
@@ -125,19 +122,7 @@ export class Tablero {
     get getResultadoDado(){
         return this.resultadoDado;
     }
-
-    get getJugadorUno(){
-        return this.jugadorUno;
-    }
-
-    get getJugadorDos(){
-        return this.jugadorDos;
-    }
     
-    get getRondasEmpatadas(){
-        return this.rondasEmpatadas;
-    }
-
     get getDadoSiendoTirado(){
         return this.dadoSiendoTirado;
     }
@@ -146,8 +131,8 @@ export class Tablero {
         return this.hayGanador;
     }
 
+    // Función para no repetir miles de veces lo mismo a la hora de guardar
     guardarEstado(){
-        // Yo esto no lo sabía, pero tiene lógica. Si usás "this" nada más se refiere a el objeto que invocó a la función. Re útil para lo que quiero hacer.
         localStorage.setItem("tableroJSON", JSON.stringify(this)); 
     }
 }
