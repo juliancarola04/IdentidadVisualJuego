@@ -49,6 +49,8 @@ document.getElementById('puntajeActualJugador2').textContent = "Puntaje actual: 
 document.getElementById('puntajeTotalJugador2').textContent = "Puntaje total: " + jugador2.getPuntajeTotal;
 document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getRondasGanadas;
 
+document.getElementById('rondaActual').textContent = "Ronda actual: " + tablero.getRondaActual;
+
 const botonJugador1 = document.getElementById('tirarDadoJugador1');
 const botonJugador2 = document.getElementById('tirarDadoJugador2');
 
@@ -99,11 +101,13 @@ function comportamientoComprobacion(id){
             document.getElementById('rondasGanadasJugador1').textContent = "Rondas ganadas: " + jugador1.getRondasGanadas;
         } else if(tablero.jugadorUno.puntajeActual < tablero.jugadorDos.puntajeActual){
             jugador2.setRondasGanadas = jugador2.getRondasGanadas + 1;
-            document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador1.getRondasGanadas;
+            document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getRondasGanadas;
         } else {
             tablero.setRondasEmpatadas = tablero.getRondasEmpatadas + 1;
         }
 
+        agregarBoton(botonJugador1);
+        agregarBoton(botonJugador2);
         tablero.setRondaActual = tablero.getRondaActual + 1;
         jugador1.setTiroDado = false;
         jugador2.setTiroDado = false;
@@ -112,11 +116,17 @@ function comportamientoComprobacion(id){
     }
 
     const rondaActual = document.getElementById(id);
-    rondaActual.textContent = tablero.getRondaActual;
+    rondaActual.textContent = "Ronda actual: " + tablero.getRondaActual;
 }
 
 function quitarBoton(boton){
     boton.classList.remove("habilitado", "btn-primary");
     boton.classList.add("btn-secondary")
     boton.textContent = "Tiro realizado";    
+}
+
+function agregarBoton (boton){
+    boton.classList.remove("btn-secondary");
+    boton.classList.add("habilitado", "btn-primary")
+    boton.textContent = "Tirar dado";    
 }

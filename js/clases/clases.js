@@ -86,7 +86,7 @@ export class Tablero {
     jugadorDos;
     rondasEmpatadas;
 
-    constructor (jugadorUno, jugadorDos, rondaActual = 0, resultadoDado = 0, rondasEmpatadas = 0){
+    constructor (jugadorUno, jugadorDos, rondaActual = 1, resultadoDado = 0, rondasEmpatadas = 0){
         this.jugadorUno = jugadorUno;
         this.jugadorDos = jugadorDos;
         this.rondaActual = rondaActual;
