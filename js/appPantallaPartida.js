@@ -111,11 +111,13 @@ function comportamientoComprobacion(id){
         if (tablero.jugadorUno.puntajeActual > tablero.jugadorDos.puntajeActual){ // La ronda la gana el jugador 1
             jugador1.setRondasGanadas = jugador1.getRondasGanadas + 1;
             document.getElementById('rondasGanadasJugador1').textContent = "Rondas ganadas: " + jugador1.getRondasGanadas;
+            document.getElementById('ganador').textContent = `${jugador1.nombre} ganó la ronda!`            
             postTirarDadoSinGanar(botonJugador1, botonJugador2); // Función comentada más adelante
             tablero.setRondaActual = tablero.getRondaActual + 1;
         } else if(tablero.jugadorUno.puntajeActual < tablero.jugadorDos.puntajeActual){ // La ronda la gana el jugador 2
             jugador2.setRondasGanadas = jugador2.getRondasGanadas + 1;
             document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getRondasGanadas;
+            document.getElementById('ganador').textContent = `${jugador2.nombre} ganó la ronda!`                        
             postTirarDadoSinGanar(botonJugador1, botonJugador2);
             tablero.setRondaActual = tablero.getRondaActual + 1;
         } else { // La ronda es empatada.
@@ -175,11 +177,11 @@ function dibujarTablero(){
             jugador = jugador2;
         }
         
-    document.getElementById(`nombreJugador${i}`).textContent = "Nombre: " + jugador.getNombre;
-    document.getElementById(`numeroTiradasJugador${i}`).textContent = "Número de tiradas: " + jugador.getNumeroTiradas;
-    document.getElementById(`puntajeActualJugador${i}`).textContent = "Puntaje actual: " + jugador.getPuntajeActual;
-    document.getElementById(`puntajeTotalJugador${i}`).textContent = "Puntaje total: " + jugador.getPuntajeTotal;
-    document.getElementById(`rondasGanadasJugador${i}`).textContent = "Rondas ganadas: " + jugador.getRondasGanadas;
+        document.getElementById(`nombreJugador${i}`).textContent = "Nombre: " + jugador.getNombre;
+        document.getElementById(`numeroTiradasJugador${i}`).textContent = "Número de tiradas: " + jugador.getNumeroTiradas;
+        document.getElementById(`puntajeActualJugador${i}`).textContent = "Puntaje actual: " + jugador.getPuntajeActual;
+        document.getElementById(`puntajeTotalJugador${i}`).textContent = "Puntaje total: " + jugador.getPuntajeTotal;
+        document.getElementById(`rondasGanadasJugador${i}`).textContent = "Rondas ganadas: " + jugador.getRondasGanadas;
     }
     document.getElementById('rondaActual').textContent = "Ronda actual: " + tablero.getRondaActual;    
 }

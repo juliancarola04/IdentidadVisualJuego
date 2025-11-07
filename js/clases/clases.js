@@ -135,4 +135,29 @@ export class Tablero {
     guardarEstado(){
         localStorage.setItem("tableroJSON", JSON.stringify(this)); 
     }
+
+    quitarBoton(boton){
+        boton.classList.remove("habilitado", "btn-primary");
+        boton.classList.add("btn-secondary")
+        boton.textContent = "Tiro realizado";    
+    }
+
+    agregarBoton (boton){
+        boton.classList.remove("btn-secondary");
+        boton.classList.add("habilitado", "btn-primary")
+        boton.textContent = "Tirar dado";    
+    }
+    
+    reiniciarPartida(jugadores){
+        jugadores.forEach(jugador => {
+            jugador.setRondaActual = 0;
+            jugador.setRondasGanadas = 0;
+            jugador.setPuntajeActual = 0;
+            jugador.setPuntajeTotal = 0;
+            jugador.setNumeroTiradas = 0;
+
+            // Permito a los jugadores volver a tirar (flags)        
+            jugador.setTiroDado = false;
+        });        
+    }
 }
