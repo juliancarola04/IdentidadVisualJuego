@@ -1,4 +1,5 @@
 const boton = document.getElementById("btn-empezar");
+const JSONdeTablero = JSON.parse(localStorage.getItem("tableroJSON"));
 
 boton.addEventListener('click', () => {
     const inputTextP1 = document.getElementById('jugador1');
@@ -19,6 +20,7 @@ boton.addEventListener('click', () => {
     }
 
     const nombreJugadores = [valorInputP1, valorInputP2];
+    localStorage.removeItem("tableroJSON");
     localStorage.setItem("nombreJugadoresJSON", JSON.stringify(nombreJugadores));
 
     window.location.href = "../html/pantallaPartida.html";
@@ -45,4 +47,17 @@ function crearMensajeError(mensaje){
         document.getElementById("containerPrincipal").appendChild(div);
         return;
     }
+}
+
+if (JSONdeTablero !== null) {
+    const div = document.getElementById("divNuevoBoton");
+
+    const button = document.createElement("button");
+    button.textContent = "Volver a partida pasada";
+    button.classList.add("btn-primary", "btn", "col-2", "mx-auto");
+    button.setAttribute("id", "botonPartidaContinuar");
+    button.addEventListener('click', () => {
+        window.location.href = "../html/pantallaPartida.html";
+    });
+    div.appendChild(button);
 }
