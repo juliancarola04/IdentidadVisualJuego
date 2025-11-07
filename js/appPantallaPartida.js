@@ -67,6 +67,17 @@ botonJugador1.addEventListener('click', () => {
     // debería de importarle el botonJugador ni el tablero.
     const resultado = jugador1.tirarDado();
 
+    const imagenDado = document.getElementById('imagen-dado');
+    const textoDado = document.getElementById('resultado-dado-texto');    
+
+    imagenDado.classList.add("rodando");
+
+    setTimeout(() => {
+        imagenDado.src = `../imagenes/carasDado/cara${resultado}.png`;
+        imagenDado.classList.remove("rodando");    
+        textoDado.textContent = `${jugador1.getNombre} sacó un ${resultado}`;            
+    }, 500);
+
     if (resultado !== false)
     {
         console.log(resultado);
@@ -81,6 +92,17 @@ botonJugador1.addEventListener('click', () => {
 botonJugador2.addEventListener('click', () => {
     const resultado = jugador2.tirarDado();
     
+    const imagenDado = document.getElementById('imagen-dado');
+    const textoDado = document.getElementById('resultado-dado-texto');    
+
+    imagenDado.classList.add("rodando");
+
+    setTimeout(() => {
+        imagenDado.src = `../imagenes/carasDado/cara${resultado}.png`;
+        imagenDado.classList.remove("rodando");    
+        textoDado.textContent = `${jugador2.getNombre} sacó un ${resultado}`;            
+    }, 500);
+
     if (resultado !== false)
     {
         quitarBoton(botonJugador2);  
