@@ -44,6 +44,8 @@ dibujarTablero();
 const botonJugador1 = document.getElementById('tirarDadoJugador1');
 const botonJugador2 = document.getElementById('tirarDadoJugador2');
 
+const botonReiniciar = document.getElementById('botonReiniciar');
+
 const headerGanador = document.getElementById("ganador");
 
 
@@ -56,41 +58,67 @@ if (jugador2.getTiradoDado === true){
 }
 
 botonJugador1.addEventListener('click', () => {
-    funcionalidadBotones(jugador1, '1', botonJugador1);
+    funcionalidadBotonesJugadores(jugador1, '1', botonJugador1, tablero);
 });
 
 
 botonJugador2.addEventListener('click', () => {
-    funcionalidadBotones(jugador2, '2', botonJugador2);
+    funcionalidadBotonesJugadores(jugador2, '2', botonJugador2, tablero);
 });
+
+botonReiniciar.addEventListener('click', () => {
+
+    tablero.setRondaActual = 1;
+    jugador1.setRondaActual = 0;
+    jugador1.setRondasGanadas = 0;
+    jugador2.setRondasGanadas = 0;
+    jugador2.setRondaActual = 0;
+    jugador1.setPuntajeActual = 0;
+    jugador2.setPuntajeActual = 0;
+    jugador1.setPuntajeTotal = 0;
+    jugador2.setPuntajeTotal = 0;
+    jugador1.setTiroDado = false;
+    jugador2.setTiroDado = false;
+
+    agregarBoton(botonJugador1);
+    agregarBoton(botonJugador2);
+    const textoDado = document.getElementById('resultado-dado-texto');    
+    textoDado.textContent = "Tirá el dado para empezar";
+    tablero.setHayGanador = false;
+
+    tablero.guardarEstado();
+    dibujarTablero();    
+})
 
 function comportamientoComprobacion(id){
     if(tablero.jugadorUno.tiroDado === true && tablero.jugadorDos.tiroDado === true && tablero.getDadoSiendoTirado === false){
         if (tablero.jugadorUno.puntajeActual > tablero.jugadorDos.puntajeActual){
             jugador1.setRondasGanadas = jugador1.getRondasGanadas + 1;
             document.getElementById('rondasGanadasJugador1').textContent = "Rondas ganadas: " + jugador1.getRondasGanadas;
+            postTirarDadoSinGanar(botonJugador1, botonJugador2);
+            tablero.setRondaActual = tablero.getRondaActual + 1;
         } else if(tablero.jugadorUno.puntajeActual < tablero.jugadorDos.puntajeActual){
             jugador2.setRondasGanadas = jugador2.getRondasGanadas + 1;
             document.getElementById('rondasGanadasJugador2').textContent = "Rondas ganadas: " + jugador2.getRondasGanadas;
+            postTirarDadoSinGanar(botonJugador1, botonJugador2);
+            tablero.setRondaActual = tablero.getRondaActual + 1;
         } else {
             tablero.setRondasEmpatadas = tablero.getRondasEmpatadas + 1;
+            postTirarDadoSinGanar(botonJugador1, botonJugador2);
+            tablero.setRondaActual = tablero.getRondaActual + 1;
         }
 
         if (jugador1.getRondasGanadas === 5 || jugador2.getRondasGanadas === 5) {
             confetti();
             if (jugador1.getRondasGanadas === 5){
                 ganador(jugador1);
+                postTirarDadoGanando(botonJugador1, botonJugador2);
             } else {
                 ganador(jugador2);
+                postTirarDadoGanando(botonJugador1, botonJugador2);
             }
         }
-
-        agregarBoton(botonJugador1);
-        agregarBoton(botonJugador2);
-        tablero.setRondaActual = tablero.getRondaActual + 1;
-        jugador1.setTiroDado = false;
-        jugador2.setTiroDado = false;
-
+        
         tablero.guardarEstado();       
     }
 
@@ -112,19 +140,20 @@ function agregarBoton (boton){
 
 function ganador(jugador){
     headerGanador.textContent = `${jugador.getNombre} gano!`;
-    tablero.setRondaActual = 0;
-    jugador1.setRondaActual = 0;
-    jugador1.setRondasGanadas = 0;
-    jugador2.setRondasGanadas = 0;
-    jugador2.setRondaActual = 0;
-    jugador1.puntajeActual = 0;
-    jugador2.puntajeActual = 0;
-    jugador1.puntajeTotal = 0;
-    jugador2.puntajeTotal = 0;
-    dibujarTablero();
+    // tablero.setRondaActual = 0;
+    // jugador1.setRondaActual = 0;
+    // jugador1.setRondasGanadas = 0;
+    // jugador2.setRondasGanadas = 0;
+    // jugador2.setRondaActual = 0;
+    // jugador1.puntajeActual = 0;
+    // jugador2.puntajeActual = 0;
+    // jugador1.puntajeTotal = 0;
+    // jugador2.puntajeTotal = 0;
+    // dibujarTablero();
 }
 
 function dibujarTablero(){
+    
     document.getElementById('nombreJugador1').textContent = "Nombre: " + jugador1.getNombre;
     document.getElementById('puntajeActualJugador1').textContent = "Puntaje actual: " + jugador1.getPuntajeActual;
     document.getElementById('puntajeTotalJugador1').textContent = "Puntaje total: " + jugador1.getPuntajeTotal;
@@ -138,9 +167,9 @@ function dibujarTablero(){
     document.getElementById('rondaActual').textContent = "Ronda actual: " + tablero.getRondaActual;    
 }
 
-function funcionalidadBotones(jugador, numJugador, boton){
+function funcionalidadBotonesJugadores(jugador, numJugador, boton, tablero){
     headerGanador.textContent = "";
-    if(tablero.getDadoSiendoTirado === false && jugador.getTiradoDado === false){
+    if(tablero.getDadoSiendoTirado === false && jugador.getTiradoDado === false && tablero.getHayGanador === false){
         const resultado = jugador.tirarDado();
         const cantidadTiempoEsperar = 500;
         
@@ -169,4 +198,19 @@ function funcionalidadBotones(jugador, numJugador, boton){
             comportamientoComprobacion("rondaActual");
         }, cantidadTiempoEsperar); 
     }
+}
+
+function postTirarDadoSinGanar(botonJugador1, botonJugador2){
+    agregarBoton(botonJugador1);
+    agregarBoton(botonJugador2);
+    jugador1.setTiroDado = false;
+    jugador2.setTiroDado = false;    
+}
+
+function postTirarDadoGanando(botonJugador1, botonJugador2){
+    quitarBoton(botonJugador1);
+    quitarBoton(botonJugador2);
+    jugador1.setTiroDado = true;
+    jugador2.setTiroDado = true;
+    tablero.setHayGanador = true;    
 }

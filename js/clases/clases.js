@@ -86,14 +86,16 @@ export class Tablero {
     jugadorDos;
     rondasEmpatadas;
     dadoSiendoTirado;
+    hayGanador;
 
-    constructor (jugadorUno, jugadorDos, rondaActual = 1, resultadoDado = 0, rondasEmpatadas = 0, dadoSiendoTirado = false){
+    constructor (jugadorUno, jugadorDos, rondaActual = 1, resultadoDado = 0, rondasEmpatadas = 0, dadoSiendoTirado = false, hayGanador = false){
         this.jugadorUno = jugadorUno;
         this.jugadorDos = jugadorDos;
         this.rondaActual = rondaActual;
         this.resultadoDado = resultadoDado;
         this.rondasEmpatadas = rondasEmpatadas;
         this.dadoSiendoTirado = dadoSiendoTirado;
+        this.hayGanador = hayGanador;
     }
 
     set setResultadoDado(resultadoDado){
@@ -110,6 +112,10 @@ export class Tablero {
 
     set setDadoSiendoTirado(dadoSiendoTirado){
         this.dadoSiendoTirado = dadoSiendoTirado;
+    }
+
+    set setHayGanador(hayGanador){
+        this.hayGanador = hayGanador;
     }
 
     get getRondaActual(){
@@ -134,6 +140,10 @@ export class Tablero {
 
     get getDadoSiendoTirado(){
         return this.dadoSiendoTirado;
+    }
+
+    get getHayGanador(){
+        return this.hayGanador;
     }
 
     guardarEstado(){
